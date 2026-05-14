@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PineridgeWeb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pine: #1a3a2a;
+    --pine-mid: #2d6b47;
+    --pine-light: #4a9c6a;
+    --pine-pale: #d4ead9;
+    --ridge: #f5f0e8;
+    --cream: #faf8f4;
+    --ink: #1c1c1a;
+    --muted: #6b6b64;
+    --white: #ffffff;
+    --accent: #c8973a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(26, 58, 42, 0.97);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    height: 68px;
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .pine-icon {
+    width: 28px; height: 28px;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(245,240,232,0.75);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cream); }
+
+  .nav-cta {
+    background: var(--accent) !important;
+    color: var(--ink) !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    transition: opacity 0.2s !important;
+  }
+
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--pine);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 5vw 80px;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 20 L50 20 L38 29 L43 44 L30 35 L17 44 L22 29 L10 20 L25 20Z' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pine-light);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--pine-light);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    color: var(--cream);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--pine-light);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(245,240,232,0.65);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--ink);
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-outline {
+    border: 1px solid rgba(245,240,232,0.3);
+    color: var(--cream);
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    border-color: rgba(245,240,232,0.7);
+    background: rgba(245,240,232,0.06);
+  }
+
+  /* HERO ILLUSTRATION */
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .browser-mock {
+    background: var(--ridge);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    transform: perspective(1000px) rotateY(-6deg) rotateX(2deg);
+  }
+
+  .browser-bar {
+    background: #e2ddd6;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #f47c7c; }
+  .dot-y { background: #f4c97c; }
+  .dot-g { background: #7cd48a; }
+
+  .browser-url {
+    flex: 1;
+    background: #fff;
+    border-radius: 3px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: #888;
+    font-family: monospace;
+    margin-left: 8px;
+  }
+
+  .browser-content {
+    padding: 0;
+    background: var(--white);
+  }
+
+  .mock-hero-bar {
+    background: var(--pine);
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .mock-dot-nav { width: 36px; height: 6px; border-radius: 2px; background: rgba(255,255,255,0.25); }
+  .mock-dot-nav:first-child { width: 60px; }
+
+  .mock-body { padding: 20px 16px; }
+
+  .mock-heading {
+    height: 18px;
+    background: var(--pine);
+    border-radius: 2px;
+    margin-bottom: 8px;
+    width: 65%;
+    opacity: 0.85;
+  }
+
+  .mock-line {
+    height: 8px;
+    background: #ddd;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+
+  .mock-line.w80 { width: 80%; }
+  .mock-line.w60 { width: 60%; }
+  .mock-line.w90 { width: 90%; }
+
+  .mock-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--accent);
+    height: 28px;
+    width: 100px;
+    border-radius: 2px;
+  }
+
+  .mock-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--ridge);
+  }
+
+  .mock-card {
+    background: white;
+    border-radius: 4px;
+    padding: 10px 8px;
+  }
+
+  .mock-card-img {
+    width: 100%; height: 32px;
+    background: linear-gradient(135deg, var(--pine-pale), var(--pine-light));
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+
+  .mock-card-line { height: 6px; background: #e0e0e0; border-radius: 2px; margin-bottom: 4px; }
+  .mock-card-line.short { width: 60%; }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--pine-pale);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .stat-item {
+    flex: 1;
+    max-width: 200px;
+    padding: 2.2rem 2rem;
+    border-right: 1px solid rgba(74,156,106,0.2);
+    text-align: center;
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--pine);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--pine-mid);
+    letter-spacing: 0.05em;
+  }
+
+  /* SECTION COMMON */
+  section { padding: 90px 5vw; }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pine-mid);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--pine-mid);
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--pine-mid);
+  }
+
+  /* SERVICES */
+  .services { background: var(--white); }
+
+  .services-header {
+    max-width: 560px;
+    margin-bottom: 3.5rem;
+  }
+
+  .services-header p {
+    margin-top: 1rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: #e8e4dc;
+    border: 1px solid #e8e4dc;
+  }
+
+  .service-card {
+    background: var(--white);
+    padding: 2.4rem 2rem;
+    transition: background 0.25s;
+    position: relative;
+  }
+
+  .service-card:hover { background: var(--cream); }
+
+  .service-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 0.85rem;
+    color: var(--pine-light);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .service-icon {
+    width: 44px; height: 44px;
+    background: var(--pine-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-icon svg { width: 22px; height: 22px; stroke: var(--pine-mid); }
+
+  .service-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+  }
+
+  .service-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* PROCESS */
+  .process { background: var(--pine); }
+
+  .process .section-label { color: var(--pine-light); }
+  .process .section-label::before { background: var(--pine-light); }
+  .process h2 { color: var(--cream); }
+  .process h2 em { color: var(--pine-light); }
+
+  .process-steps {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+  }
+
+  .step {
+    padding: 2.2rem 1.8rem;
+    border: 1px solid rgba(74,156,106,0.15);
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: rgba(74,156,106,0.2);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .step h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.55);
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  /* PORTFOLIO */
+  .portfolio { background: var(--cream); }
+
+  .portfolio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 200;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(26, 58, 42, 0.98);
+    backdrop-filter: blur(8px);
+    z-index: 99;
+    padding: 1.5rem 5vw 2rem;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(74,156,106,0.2);
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    color: rgba(245,240,232,0.8);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 400;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--cream); }
+
+  .mobile-menu .mobile-cta {
+    margin-top: 1rem;
+    background: var(--accent);
+    color: var(--ink) !important;
+    text-align: center;
+    padding: 0.9rem !important;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    border-bottom: none !important;
+  }
+
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 90px; min-height: auto; padding-bottom: 60px; }
+    .hero-visual { display: none; }
+    h1 { font-size: 2.4rem; }
+    .hero-sub { font-size: 0.97rem; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat-item { flex: 1 1 45%; padding: 1.4rem 1rem; border-right: none; border-bottom: 1px solid rgba(74,156,106,0.2); }
+    .stat-item:nth-child(odd) { border-right: 1px solid rgba(74,156,106,0.2); }
+    section { padding: 60px 5vw; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 2rem; }
+    h2 { font-size: 2rem; }
+    .price-amount { font-size: 2.4rem; }
+  }
+
+  @media (max-width: 400px) {
+    .nav-logo { font-size: 1.05rem; }
+    h1 { font-size: 2rem; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { text-align: center; }
+    .stat-item { flex: 1 1 100%; border-right: none; }
+  }
+
+  .portfolio-item {
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid #e8e4dc;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .portfolio-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  }
+
+  .portfolio-thumb {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--cream);
+  }
+
+  .t-restaurant { background: linear-gradient(135deg, #2a3d2a 0%, #4a7a4a 100%); }
+  .t-salon { background: linear-gradient(135deg, #3d2a35 0%, #7a4a65 100%); }
+  .t-contractor { background: linear-gradient(135deg, #2a3240 0%, #4a6080 100%); }
+
+  .portfolio-info { padding: 1.2rem 1.4rem; }
+
+  .portfolio-info h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .portfolio-info span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* PRICING */
+  .pricing { background: var(--white); }
+
+  .pricing-header { max-width: 500px; margin-bottom: 3.5rem; }
+  .pricing-header p { margin-top: 1rem; color: var(--muted); font-weight: 300; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .price-card {
+    border: 1px solid #e8e4dc;
+    border-radius: 4px;
+    padding: 2.2rem 2rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .price-card:hover { border-color: var(--pine-light); }
+
+  .price-card.featured {
+    border-color: var(--pine-mid);
+    background: var(--pine);
+  }
+
+  .price-card.subscription {
+    border-color: var(--pine-mid);
+    background: var(--pine);
+  }
+
+  .price-card.subscription .price-tier { color: var(--pine-light); }
+  .price-card.subscription .price-amount { color: var(--cream); }
+  .price-card.subscription .price-note { color: rgba(245,240,232,0.5); }
+  .price-card.subscription .price-features li { color: rgba(245,240,232,0.7); border-color: rgba(245,240,232,0.1); }
+  .price-card.subscription .btn-plan { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+  .price-card.subscription .btn-plan:hover { opacity: 0.88; }
+
+  .price-badge {
+    position: absolute;
+    top: -11px; left: 24px;
+    background: var(--accent);
+    color: var(--ink);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  .price-tier {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .price-card.featured .price-tier { color: var(--pine-light); }
+
+  .price-amount {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  .price-card.featured .price-amount { color: var(--cream); }
+
+  .price-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+  }
+
+  .price-card.featured .price-note { color: rgba(245,240,232,0.5); }
+
+  .price-features {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .price-features li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0ece4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .price-card.featured .price-features li {
+    color: rgba(245,240,232,0.7);
+    border-color: rgba(245,240,232,0.1);
+  }
+
+  .price-features li::before {
+    content: '✓';
+    color: var(--pine-light);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .btn-plan {
+    display: block;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--pine-mid);
+    color: var(--pine-mid);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-plan:hover { background: var(--pine-pale); }
+
+  .price-card.featured .btn-plan {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+
+  .price-card.featured .btn-plan:hover { opacity: 0.88; }
+
+  /* CTA */
+  .cta-section {
+    background: var(--ridge);
+    text-align: center;
+    padding: 100px 5vw;
+  }
+
+  .cta-section h2 { margin-bottom: 1rem; }
+  .cta-section p { color: var(--muted); font-weight: 300; max-width: 500px; margin: 0 auto 2.5rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 60px 5vw 30px;
+    color: rgba(245,240,232,0.5);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .footer-tagline { font-size: 0.85rem; max-width: 240px; }
+
+  .footer-links h4 {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 1rem;
+  }
+
+  .footer-links ul { list-style: none; }
+  .footer-links li { margin-bottom: 0.5rem; }
+  .footer-links a { color: rgba(245,240,232,0.6); text-decoration: none; font-size: 0.9rem; }
+  .footer-links a:hover { color: var(--cream); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(245,240,232,0.1);
+    padding-top: 1.5rem;
+    font-size: 0.82rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg class="pine-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2 L17 11 L26 11 L19 17 L22 26 L14 20 L6 26 L9 17 L2 11 L11 11Z" fill="none" stroke="#4a9c6a" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M14 6 L16 12 L22 12 L17 16 L19 22 L14 18 L9 22 L11 16 L6 12 L12 12Z" fill="#4a9c6a" opacity="0.3"/>
+    </svg>
+    PineridgeWeb
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#process" class="mobile-link">Process</a>
+  <a href="#pricing" class="mobile-link">Pricing</a>
+  <a href="#contact" class="mobile-cta mobile-link">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Web Design Studio — Maine</div>
+    <h1>Websites that <em>work</em> as hard as you do</h1>
+    <p class="hero-sub">We build clean, fast, and professional websites for local businesses ready to grow their online presence.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Start a project</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="browser-mock">
+      <div class="browser-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="browser-url">yourbusiness.com</div>
+      </div>
+      <div class="browser-content">
+        <div class="mock-hero-bar">
+          <div class="mock-dot-nav"></div>
+          <div class="mock-dot-nav"></div>
+          <div class="mock-dot-nav"></div>
+          <div class="mock-dot-nav"></div>
+        </div>
+        <div class="mock-body">
+          <div class="mock-heading"></div>
+          <div class="mock-line w80"></div>
+          <div class="mock-line w60"></div>
+          <div class="mock-line w90"></div>
+          <div class="mock-btn"></div>
+        </div>
+        <div class="mock-cards">
+          <div class="mock-card">
+            <div class="mock-card-img"></div>
+            <div class="mock-card-line"></div>
+            <div class="mock-card-line short"></div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-img" style="background: linear-gradient(135deg, #d4ead9, #2d6b47)"></div>
+            <div class="mock-card-line"></div>
+            <div class="mock-card-line short"></div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-img" style="background: linear-gradient(135deg, #e8e4dc, #c8973a)"></div>
+            <div class="mock-card-line"></div>
+            <div class="mock-card-line short"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">50+</span>
+    <span class="stat-label">Sites launched</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">98%</span>
+    <span class="stat-label">Client satisfaction</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">14d</span>
+    <span class="stat-label">Average turnaround</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-label">What we do</div>
+    <h2>Everything your business needs <em>online</em></h2>
+    <p>From a simple landing page to a fully custom site with booking and e-commerce — we cover it all.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="14" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+        </svg>
+      </div>
+      <h3>Custom Website Design</h3>
+      <p>Fully bespoke websites built around your brand, your goals, and your customers — no templates.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 18.5A6.5 6.5 0 1 0 12 5.5a6.5 6.5 0 0 0 0 13z"/>
+          <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2"/>
+        </svg>
+      </div>
+      <h3>Mobile Optimization</h3>
+      <p>Every site we build looks great on phones, tablets, and desktops — because that's where your customers are.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+        </svg>
+      </div>
+      <h3>SEO & Visibility</h3>
+      <p>Built-in search engine optimization so new customers in your area can actually find you on Google.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </div>
+      <h3>E-commerce</h3>
+      <p>Sell products online with a secure, easy-to-manage store that handles inventory, payments, and shipping.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">05</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+        </svg>
+      </div>
+      <h3>Content Management</h3>
+      <p>We set you up with a simple dashboard so you can update your content, photos, and pricing yourself — no tech skills required.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">06</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18.36 6.64A9 9 0 1 1 5.64 17.36"/>
+          <path d="M22 12h-4M4 12H0M12 4V0M12 24v-4"/>
+        </svg>
+      </div>
+      <h3>Ongoing Support</h3>
+      <p>We don't disappear after launch. Updates, fixes, and improvements — we're a long-term partner in your success.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-label">How it works</div>
+  <h2>From idea to <em>live site</em> in four steps</h2>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Discovery call</h3>
+      <p>We learn about your business, your goals, and what you need from your website — no jargon, just a real conversation.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Design & plan</h3>
+      <p>We put together a custom design concept and detailed plan for your review before any code is written.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Build & refine</h3>
+      <p>We build your site with your feedback along the way, making sure every detail is exactly right.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Launch & grow</h3>
+      <p>We go live, make sure everything is running smoothly, and continue supporting you as your business grows.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header">
+    <div class="section-label">Pricing</div>
+    <h2>Transparent, <em>simple</em> pricing</h2>
+    <p>Every plan comes in two options — own it outright, or keep us on as your ongoing partner with a low monthly subscription.</p>
+  </div>
+
+  <!-- STARTER TIER -->
+  <div style="margin-bottom: 3rem;">
+    <div style="margin-bottom: 1.2rem;">
+      <span style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);">Starter</span>
+      <p style="font-size: 0.9rem; color: var(--muted); margin-top: 0.3rem;">For small businesses that need a clean, professional presence online.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">One-time</div>
+        <div class="price-amount">$799</div>
+        <div class="price-note">single payment — you own everything</div>
+        <ul class="price-features">
+          <li>Up to 5 pages</li>
+          <li>Mobile-responsive design</li>
+          <li>Contact form</li>
+          <li>Basic SEO setup</li>
+          <li>Full domain ownership transferred to you</li>
+          <li>You own the website outright</li>
+          <li>Future changes from <strong>$25/change</strong> — price varies by complexity</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Get started</a>
+      </div>
+      <div class="price-card subscription">
+        <div class="price-tier">Monthly subscription</div>
+        <div class="price-amount">$30<span style="font-size: 1.1rem; font-weight: 300;">/mo</span></div>
+        <div class="price-note">$200 startup fee</div>
+        <ul class="price-features">
+          <li>Up to 5 pages</li>
+          <li>Mobile-responsive design</li>
+          <li>Contact form</li>
+          <li>Basic SEO setup</li>
+          <li>Domain included &amp; managed for you</li>
+          <li>5 content changes per month</li>
+          <li>1 add-on per month</li>
+          <li>Ongoing support &amp; maintenance</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Get started</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFESSIONAL TIER -->
+  <div style="margin-bottom: 3rem;">
+    <div style="margin-bottom: 1.2rem;">
+      <span style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);">Professional</span>
+      <p style="font-size: 0.9rem; color: var(--muted); margin-top: 0.3rem;">For businesses ready to grow with a fully custom, branded website.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">One-time</div>
+        <div class="price-amount">$1,599</div>
+        <div class="price-note">single payment — you own everything</div>
+        <ul class="price-features">
+          <li>Up to 15 pages</li>
+          <li>Custom design &amp; branding</li>
+          <li>Google review showcase on your site</li>
+          <li>Google review analytics</li>
+          <li>Appointment &amp; booking system</li>
+          <li>Full SEO optimization</li>
+          <li>Full domain ownership transferred to you</li>
+          <li>You own the website outright</li>
+          <li>Future changes from <strong>$25/change</strong> — price varies by complexity</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Get started</a>
+      </div>
+      <div class="price-card featured subscription">
+        <div class="price-badge">Best value</div>
+        <div class="price-tier">Monthly subscription</div>
+        <div class="price-amount" style="color: var(--cream);">$70<span style="font-size: 1.1rem; font-weight: 300;">/mo</span></div>
+        <div class="price-note">$400 startup fee</div>
+        <ul class="price-features">
+          <li>Up to 15 pages</li>
+          <li>Custom design &amp; branding</li>
+          <li>Google review showcase on your site</li>
+          <li>Google review analytics</li>
+          <li>Appointment &amp; booking system</li>
+          <li>Full SEO optimization</li>
+          <li>Domain included &amp; managed for you</li>
+          <li>10 content changes per month</li>
+          <li>3 add-ons per month</li>
+          <li>Ongoing support &amp; maintenance</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Get started</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- E-COMMERCE TIER -->
+  <div>
+    <div style="margin-bottom: 1.2rem;">
+      <span style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);">E-commerce</span>
+      <p style="font-size: 0.9rem; color: var(--muted); margin-top: 0.3rem;">For businesses ready to sell products and take orders online.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">One-time</div>
+        <div class="price-amount">$2,799</div>
+        <div class="price-note">single payment — you own everything</div>
+        <ul class="price-features">
+          <li>Up to 30 pages</li>
+          <li>Full e-commerce store setup</li>
+          <li>Online ordering &amp; payments</li>
+          <li>Google review showcase on your site</li>
+          <li>Google review analytics</li>
+          <li>Appointment &amp; booking system</li>
+          <li>Full SEO &amp; speed optimization</li>
+          <li>Full domain ownership transferred to you</li>
+          <li>You own the website outright</li>
+          <li>Future changes from <strong>$25/change</strong> — price varies by complexity</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Get started</a>
+      </div>
+      <div class="price-card subscription">
+        <div class="price-tier">Monthly subscription</div>
+        <div class="price-amount">$100<span style="font-size: 1.1rem; font-weight: 300;">/mo</span></div>
+        <div class="price-note">$800 startup fee</div>
+        <ul class="price-features">
+          <li>Up to 30 pages</li>
+          <li>Full e-commerce store setup</li>
+          <li>Online ordering &amp; payments</li>
+          <li>Google review showcase on your site</li>
+          <li>Google review analytics</li>
+          <li>Appointment &amp; booking system</li>
+          <li>Full SEO &amp; speed optimization</li>
+          <li>Domain included &amp; managed for you</li>
+          <li>20 content changes per month</li>
+          <li>5 add-ons per month</li>
+          <li>Ongoing support &amp; maintenance</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Get started</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="section-label" style="justify-content: center;">Let's talk</div>
+  <h2>Ready to build something <em>great?</em></h2>
+  <p>Tell us about your business and what you're looking for — we'll get back to you within one business day.</p>
+  <a href="https://mail.google.com/mail/?view=cm&to=Pineridgewebdesign@gmail.com" target="_blank" class="btn-primary" style="font-size: 1rem; padding: 1rem 2.5rem;">Pineridgewebdesign@gmail.com</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">PineridgeWeb</div>
+      <p class="footer-tagline">Helping local businesses thrive online — built right here in Maine.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Custom Design</a></li>
+        <li><a href="#services">SEO</a></li>
+        <li><a href="#services">E-commerce</a></li>
+        <li><a href="#services">Support</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 PineridgeWeb. All rights reserved.</span>
+    <span>Lewiston, Maine</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
